@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.event.ActionListener;
-
 import app.JApplication;
 import javax.swing.JPanel;
 import javax.swing.JComponent;
