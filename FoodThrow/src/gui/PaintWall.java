@@ -5,9 +5,13 @@ import java.io.IOException;
 import paint.*;
 
 import java.awt.Color;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+
+
 import visual.*;
 
-public class PaintWall extends Visualization{
+public class PaintWall extends Visualization implements MouseListener{
     private static final Color BACKGROUND_COLOR = new Color(225, 222, 213);
     protected PaintContentFactory factory;
 
@@ -19,6 +23,28 @@ public class PaintWall extends Visualization{
         view.setSize(width, height);
         view.setBackground(BACKGROUND_COLOR);
         factory = new PaintContentFactory();
+        addMouseListener(this);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        handleProjectile(e.getX(), e.getY(), Color.red);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 
     public void handleProjectile(final int x, final int y, final Color c)
