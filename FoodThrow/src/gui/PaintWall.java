@@ -14,6 +14,7 @@ import visual.*;
 public class PaintWall extends Visualization implements MouseListener{
     private static final Color BACKGROUND_COLOR = new Color(225, 222, 213);
     protected PaintContentFactory factory;
+    protected ColorSelector colors;
 
     public PaintWall(final int width, final int height) throws IOException
     {
@@ -24,11 +25,14 @@ public class PaintWall extends Visualization implements MouseListener{
         view.setBackground(BACKGROUND_COLOR);
         factory = new PaintContentFactory();
         addMouseListener(this);
+        colors = new ColorSelector();
+        addKeyListener(colors);
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        handleProjectile(e.getX(), e.getY(), Color.red);
+        handleProjectile(e.getX(), e.getY(), colors.getColor());
     }
 
     @Override
