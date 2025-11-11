@@ -8,16 +8,16 @@ import visual.statik.SimpleContent;
 
 public class PaintContent implements SimpleContent{
 
-    protected Color color;
-    protected Point2D location;
+  protected Color color;
+  protected Point2D location;
 
-    public PaintContent(final Color color, final Point2D location)
-    {
-        this.color = color;
-        this.location = location;
-    }
+  public PaintContent(final Color color, final Point2D location)
+  {
+      this.color = color;
+      this.location = location;
+  }
 
-      @Override
+  @Override
   public void render(final Graphics g)
   {
     Graphics2D g2 = (Graphics2D) g;
@@ -28,9 +28,10 @@ public class PaintContent implements SimpleContent{
     // Render the Image
     double y = location.getY();
     double x = location.getX();
-    double width = 10;
-    double height = 10;
+    double width = 20;
+    double height = 20;
     Rectangle2D rectangle= new Rectangle2D.Double(x, y ,width, height);
+    g2.fill(rectangle);
     g2.draw(rectangle);
     g2.setColor(oldColor);
   }

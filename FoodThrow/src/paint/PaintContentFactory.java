@@ -1,7 +1,6 @@
 package paint;
 
 import java.awt.Color;
-import java.awt.*;
 import java.awt.geom.*;
 
 

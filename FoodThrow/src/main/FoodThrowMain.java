@@ -8,7 +8,7 @@ import app.JApplication;
 
 public class FoodThrowMain extends FoodThrowApplication
 {
-    private PaintWall wall;
+  private PaintWall wall;
   
   /**
    * Explicit value constructor.
