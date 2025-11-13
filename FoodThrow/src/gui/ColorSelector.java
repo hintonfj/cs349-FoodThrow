@@ -9,7 +9,7 @@ public class ColorSelector implements KeyListener {
     private int index = 0;
 
     public ColorSelector() {
-        this(new Color[] { Color.red, Color.blue, Color.green });
+        this(new Color[] { Color.red, Color.orange, Color.yellow, Color.green, Color.blue, Color.magenta, Color.pink });
     }
 
     public ColorSelector(final Color[] colors) {
