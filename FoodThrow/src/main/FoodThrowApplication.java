@@ -38,8 +38,8 @@ public abstract class FoodThrowApplication extends JApplication{
     JPanel contentPane = (JPanel)getContentPane();
     contentPane.setLayout(null);
     
-    JComponent weatherObserverComponent = getGUIComponent();
-    weatherObserverComponent.setBounds(0, 0, WIDTH, HEIGHT-60);
-    contentPane.add(weatherObserverComponent);
+    JComponent foodGame = getGUIComponent();
+    foodGame.setBounds(0, 0, WIDTH, HEIGHT-60);
+    contentPane.add(foodGame);
   }
 }

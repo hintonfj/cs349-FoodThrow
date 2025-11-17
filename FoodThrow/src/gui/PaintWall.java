@@ -10,6 +10,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import auditory.sampled.BufferedSound;
 import auditory.sampled.BufferedSoundFactory;
+import gui.reader.CompareImages;
 import io.ResourceFinder;
 import paint.*;
 import sound.*;
@@ -50,7 +51,6 @@ public class PaintWall extends Visualization implements MouseListener {
         } catch (IOException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
-        handleSplatSound();
 		addMouseListener(this);
 		addKeyListener(selector);
 	}
