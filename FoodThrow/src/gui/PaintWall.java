@@ -27,7 +27,6 @@ public class PaintWall extends Visualization implements MouseListener{
         addMouseListener(this);
         colors = new ColorSelector();
         addKeyListener(colors);
-
     }
 
     @Override
