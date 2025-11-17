@@ -39,7 +39,7 @@ public abstract class FoodThrowApplication extends JApplication{
     contentPane.setLayout(null);
     
     JComponent weatherObserverComponent = getGUIComponent();
-    weatherObserverComponent.setBounds(0, 60, WIDTH, HEIGHT-60);
+    weatherObserverComponent.setBounds(0, 0, WIDTH, HEIGHT-60);
     contentPane.add(weatherObserverComponent);
   }
 }

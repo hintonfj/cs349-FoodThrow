@@ -3,6 +3,8 @@ package paint;
 import java.awt.Color;
 import java.awt.geom.*;
 
+import gui.Food;
+
 
 public class PaintContentFactory {
     public PaintContentFactory()
@@ -10,8 +12,8 @@ public class PaintContentFactory {
 
     }
 
-    public PaintContent createContent(final int x, final int y, Color c)
+    public PaintContent createContent(final int x, final int y, final Food food)
     {
-        return new PaintContent(c, new Point2D.Double(x,y));
+        return new PaintContent(food, new Point2D.Double(x,y));
     }
 }
