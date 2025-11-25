@@ -52,45 +52,74 @@ public class FoodThrowMain extends FoodThrowApplication {
 			selector.setIndex(index);
 		});
 
-		wall = new PaintWall(width, height, selector);
-
 	}
 
-	/**
-	 * Get the GUI component that will be used to display the weather information.
-	 * 
-	 * @return The WeatherObserverPanel
-	 */
+
 	@Override
 	protected JComponent getGUIComponent() {
 		JPanel panel = new JPanel(null);
 		JPanel gamePanel = new JPanel(null);
+		gamePanel.setBounds(0, 0, WIDTH, HEIGHT);
+		gamePanel.setVisible(false);
 
-		// Palette at the top
+		final OpeningScreen[] openingRef = new OpeningScreen[1];
+
+		// Create OpeningScreen with three options
+		openingRef[0] = new OpeningScreen(
+			() -> { // Free Paint
+				try {
+					wall = new PaintWall(width, height, selector);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				showGamePanel(gamePanel, openingRef[0]);
+			},
+			() -> { // Compare Minigame
+				try {
+					wall = new CompareWall(width, height, selector);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				showGamePanel(gamePanel, openingRef[0]);
+			},
+			() -> { // Coming Soon
+				showGamePanel(gamePanel, openingRef[0]);
+			}
+		);
+
+		OpeningScreen opening = openingRef[0];
+		opening.setBounds(0, 0, WIDTH, HEIGHT);
+
+		panel.add(opening);
+		panel.add(gamePanel);
+
+		return panel;
+	}
+
+	/**
+	 * Shows the game panel and adds the wall and palette after wall is initialized.
+	 */
+	private void showGamePanel(JPanel gamePanel, OpeningScreen opening) {
+		// Hide opening screen
+		opening.setVisible(false);
+
+		// Clear the panel in case anything is leftover
+		gamePanel.removeAll();
+
+		// Add palette at the top
 		palette.setBounds(0, 0, WIDTH, 120);
 		gamePanel.add(palette);
 
-		// Wall under the palette
-		JComponent wallView = wall.getView();
-		wallView.setBounds(0, 120, WIDTH, HEIGHT - 120);
-		gamePanel.add(wallView);
-		gamePanel.setBounds(0, 0, WIDTH, HEIGHT);
-		gamePanel.setVisible(false); // hidden to show game screen at first
+		if (wall != null) {
+			// Add wall view under palette
+			JComponent wallView = wall.getView();
+			wallView.setBounds(0, 120, WIDTH, HEIGHT - 120);
+			gamePanel.add(wallView);
+		}
 
-	    final OpeningScreen[] openingRef = new OpeningScreen[1];
-
-	    //  opening screen 
-	    openingRef[0] = new OpeningScreen(() -> {
-	        openingRef[0].setVisible(false);
-	        gamePanel.setVisible(true);
-	    });
-
-	    OpeningScreen opening = openingRef[0];
-	    opening.setBounds(0, 0, WIDTH, HEIGHT);
-
-	    panel.add(opening);
-	    panel.add(gamePanel);
-		return panel;
+		gamePanel.revalidate();
+		gamePanel.repaint();
+		gamePanel.setVisible(true);
 	}
 
 	/**

@@ -8,8 +8,7 @@ import javax.imageio.ImageIO;
 
 public class OpeningScreen extends JPanel {
 
-    public OpeningScreen(Runnable onStart) {
-
+public OpeningScreen(Runnable onStartFreePaint, Runnable onStartOpt1, Runnable onStartOpt2) {
         setLayout(null);
         setBackground(new Color(245, 245, 245));
 
@@ -49,13 +48,14 @@ public class OpeningScreen extends JPanel {
         JButton startButton = new JButton("Free Paint");
         startButton.setFont(new Font("Monaco", Font.BOLD, 18));
         startButton.setBounds(225, 410, 150, 50);
-        startButton.addActionListener(e -> onStart.run());
+        startButton.addActionListener(e -> onStartFreePaint.run());
         add(startButton);
 
         // game mode 1
         JButton opt1 = new JButton("Coming Soon");
         opt1.setFont(new Font("Monaco", Font.PLAIN, 18));
         opt1.setBounds(225, 465, 150, 50);
+        opt1.addActionListener(e -> onStartOpt1.run());
         add(opt1);
 
         // game mode 2

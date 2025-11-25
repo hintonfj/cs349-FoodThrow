@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
-import images.Marker;
+import images.CompareImages.Marker;
 import io.ResourceFinder;
 import visual.statik.sampled.ImageFactory;
 
