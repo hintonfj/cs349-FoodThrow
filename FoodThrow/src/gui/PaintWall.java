@@ -1,8 +1,10 @@
 package gui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -10,12 +12,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import auditory.sampled.BufferedSound;
 import auditory.sampled.BufferedSoundFactory;
+import gui.reader.ImageConverter;
 import io.ResourceFinder;
 import paint.*;
 import sound.*;
 
 import java.awt.Color;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.awt.event.MouseEvent;
 
 import visual.*;
@@ -91,4 +95,15 @@ public class PaintWall extends Visualization implements MouseListener {
             e1.printStackTrace();
         }
     }
+
+	private void saveFile()
+	{
+		try {
+    		BufferedImage bi = ImageConverter.convertToBuffered(getView());  // retrieve image
+			File outputfile = new File("saved.png");
+			ImageIO.write(bi, "png", outputfile);
+		} catch (IOException e) {
+			// handle exception
+		}
+	}
 }
