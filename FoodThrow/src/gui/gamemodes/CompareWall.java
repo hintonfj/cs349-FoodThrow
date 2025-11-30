@@ -1,4 +1,4 @@
-package gui;
+package gui.gamemodes;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -10,9 +10,11 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import gui.FoodSelector;
+import gui.PaintWall;
 import gui.reader.CompareImages;
-import images.CompareImages.Marker;
 import io.ResourceFinder;
+import resources.images.CompareImages.CompareMarker;
 import visual.statik.sampled.ImageFactory;
 
 public class CompareWall extends PaintWall implements KeyListener{
@@ -28,7 +30,7 @@ public class CompareWall extends PaintWall implements KeyListener{
 
     public void changePhoto(String filename)
     {
-        ResourceFinder rf = ResourceFinder.createInstance(new Marker());
+        ResourceFinder rf = ResourceFinder.createInstance(new CompareMarker());
         ImageFactory imageFactory = new ImageFactory(rf);
         comparedImage = imageFactory.createBufferedImage(filename);
     }

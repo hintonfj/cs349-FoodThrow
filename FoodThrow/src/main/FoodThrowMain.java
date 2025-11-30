@@ -1,6 +1,8 @@
 package main;
 
 import gui.*;
+import gui.gamemodes.CompareWall;
+import gui.gamemodes.FreePaint;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
@@ -24,16 +26,15 @@ public class FoodThrowMain extends FoodThrowApplication {
 	 */
 	public FoodThrowMain(final String[] args) throws IOException {
 		super(args);
-
 		// images
-		BufferedImage plate = ImageIO.read(getClass().getResource("/images/plate.png"));
-		BufferedImage tomato = ImageIO.read(getClass().getResource("/images/tomato.png"));
-		BufferedImage orange = ImageIO.read(getClass().getResource("/images/orange.png"));
-		BufferedImage banana = ImageIO.read(getClass().getResource("/images/banana.png"));
-		BufferedImage pepper = ImageIO.read(getClass().getResource("/images/pepper.png"));
-		BufferedImage blueberry = ImageIO.read(getClass().getResource("/images/blueberry.png"));
-		BufferedImage grape = ImageIO.read(getClass().getResource("/images/grape.png"));
-		BufferedImage peach = ImageIO.read(getClass().getResource("/images/peach.png"));
+		BufferedImage plate = ImageIO.read(getClass().getResource("/resources/images/plate.png"));
+		BufferedImage tomato = ImageIO.read(getClass().getResource("/resources/images/tomato.png"));
+		BufferedImage orange = ImageIO.read(getClass().getResource("/resources/images/orange.png"));
+		BufferedImage banana = ImageIO.read(getClass().getResource("/resources/images/banana.png"));
+		BufferedImage pepper = ImageIO.read(getClass().getResource("/resources/images/pepper.png"));
+		BufferedImage blueberry = ImageIO.read(getClass().getResource("/resources/images/blueberry.png"));
+		BufferedImage grape = ImageIO.read(getClass().getResource("/resources/images/grape.png"));
+		BufferedImage peach = ImageIO.read(getClass().getResource("/resources/images/peach.png"));
 
 		// group foods together
 		Food[] foods = new Food[] { new Food("Tomato", Color.red, tomato), new Food("Orange", Color.orange, orange),
@@ -68,7 +69,7 @@ public class FoodThrowMain extends FoodThrowApplication {
 		openingRef[0] = new OpeningScreen(
 			() -> { // Free Paint
 				try {
-					wall = new PaintWall(width, height, selector);
+					wall = new FreePaint(width, height, selector);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

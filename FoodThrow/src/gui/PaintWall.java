@@ -95,15 +95,4 @@ public class PaintWall extends Visualization implements MouseListener {
             e1.printStackTrace();
         }
     }
-
-	private void saveFile()
-	{
-		try {
-    		BufferedImage bi = ImageConverter.convertToBuffered(getView());  // retrieve image
-			File outputfile = new File("saved.png");
-			ImageIO.write(bi, "png", outputfile);
-		} catch (IOException e) {
-			// handle exception
-		}
-	}
 }

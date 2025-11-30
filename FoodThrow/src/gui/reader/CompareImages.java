@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
-import images.CompareImages.Marker;
 import io.ResourceFinder;
+import resources.images.CompareImages.CompareMarker;
 import visual.statik.sampled.ImageFactory;
 
 public class CompareImages 
@@ -24,7 +24,7 @@ public class CompareImages
 
     public static double CompareBufferedImages(JComponent img1, String img2)
     {
-        ResourceFinder rf = ResourceFinder.createInstance(new Marker());
+        ResourceFinder rf = ResourceFinder.createInstance(new CompareMarker());
         ImageFactory imageFactory = new ImageFactory(rf);
         BufferedImage buffered2 = imageFactory.createBufferedImage(img2);
         BufferedImage buffered1 = ImageConverter.convertToBuffered(img1);

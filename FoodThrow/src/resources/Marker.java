@@ -1,4 +1,4 @@
-package images.CompareImages;
+package resources;
 
 public class Marker {
     
