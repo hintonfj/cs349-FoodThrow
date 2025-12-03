@@ -1,9 +1,13 @@
 package gui.gamemodes;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -15,18 +19,35 @@ import gui.PaintWall;
 import gui.reader.CompareImages;
 import io.ResourceFinder;
 import resources.images.CompareImages.CompareMarker;
+import visual.VisualizationView;
 import visual.statik.sampled.ImageFactory;
 
 public class CompareWall extends PaintWall implements KeyListener{
 
     private BufferedImage comparedImage;
+    private int seconds = 10;
+    private int remainingMilliseconds;
+    private Timer timer;
+    private JLabel timerLabel;
+
 
     public CompareWall(int width, int height, FoodSelector selector) throws IOException {
         super(width, height, selector);
+        VisualizationView view = getView();
         addKeyListener(this);
         changePhoto("corner.png");
         handleImageDisplay(width, height);
+
+        /*TIMER NOT WORKING */
+
+        timerLabel = new JLabel();
+        timerLabel.setFont(new Font("Monaco", Font.BOLD, 20));
+        timerLabel.setForeground(Color.RED);
+        timerLabel.setBounds(width - 120, 8, 510, 300);
+        view.add(timerLabel);
+        startTimer();
     }
+
 
     public void changePhoto(String filename)
     {
@@ -37,7 +58,7 @@ public class CompareWall extends PaintWall implements KeyListener{
 
     @Override
     public void keyTyped(KeyEvent e) {
-        handleCompare();
+        gameEnd();
     }
 
     @Override
@@ -68,10 +89,28 @@ public class CompareWall extends PaintWall implements KeyListener{
         dialog.setVisible(true);
     }
 
-    private void handleCompare()
+    private void gameEnd()
     {
-        double percent = CompareImages.CompareBufferedImages(getView(), comparedImage);
-        JOptionPane.showMessageDialog(null, String.format("You got %%%f!", percent * 100));
+        timer.cancel();
+        
+        double percent = CompareImages.CompareBufferedImages(getView(), comparedImage)*100;
+        double timeRemaining = (remainingMilliseconds / 1000.0);
+        double score = percent * (timeRemaining + 1);
+        JOptionPane.showMessageDialog(null, String.format("You got: %%%.2f!\nTime left: %.2f!\nScore:%.2f", percent, timeRemaining, score));
     }
-    
+
+private void startTimer() {
+    remainingMilliseconds = seconds*1000;
+    timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        @Override
+        public void run() {
+                if (remainingMilliseconds > 0) {
+                    remainingMilliseconds--;
+                } else {
+                    gameEnd();
+                }
+            }
+        }, 1000, 1);
+    }
 }
