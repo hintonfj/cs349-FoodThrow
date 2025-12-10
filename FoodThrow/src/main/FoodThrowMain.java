@@ -5,6 +5,7 @@ import gui.gamemodes.CompareWall;
 import gui.gamemodes.FreePaint;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -108,8 +109,17 @@ public class FoodThrowMain extends FoodThrowApplication {
 		gamePanel.removeAll();
 
 		// Add palette at the top
-		palette.setBounds(0, 0, WIDTH, 120);
+		palette.setBounds(10, 25, WIDTH, 120);
 		gamePanel.add(palette);
+		
+		// add back button
+	    JButton backButton = new JButton("Back");
+	    backButton.setBounds(0, 0, 80, 30);
+	    backButton.addActionListener(e -> {
+	        gamePanel.setVisible(false);
+	        opening.setVisible(true);
+	    });
+	    gamePanel.add(backButton);
 
 		if (wall != null) {
 			// Add wall view under palette
