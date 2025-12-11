@@ -10,7 +10,7 @@ import gui.Food;
 import gui.FoodSelector;
 import gui.PaintWall;
 import gui.reader.BaseMapReader;
-import gui.reader.CompareImages;
+import gui.reader.ColorChecker;
 import io.ResourceFinder;
 import paint.PaintContent;
 import resources.Marker;
@@ -21,6 +21,7 @@ public class FillWall extends PaintWall{
     private ResourceFinder jarFinder;
     private TransformableContent border;
     private int shotsRemaining;
+    private ColorChecker colorComparer;
     private int numPixelsToFill;
     
     public FillWall(int width, int height, FoodSelector selector, Color Interior) throws IOException {
@@ -30,6 +31,7 @@ public class FillWall extends PaintWall{
         border = mapReader.read("harrisonburg.map", Color.BLACK, Interior);
         shotsRemaining = 100;
         numPixelsToFill = -1;
+        colorComparer = new ColorChecker(Interior);
         add(border);
     }
 
@@ -37,11 +39,7 @@ public class FillWall extends PaintWall{
     protected void handleProjectile(final int x, final int y, final Food food) {
 		PaintContent content = factory.createContent(x, y, food);
 		add(content);
-        if (numPixelsToFill == -1)
-        {
-            numPixelsToFill = CompareImages.numColors(getView(), Color.WHITE);
-        }
-        boolean completed = !CompareImages.containsColor(getView(), Color.WHITE, 1, numPixelsToFill);
+        boolean completed = !colorComparer.containsColor(getView(), 0.1);
         shotsRemaining--;
         if (completed)
         {

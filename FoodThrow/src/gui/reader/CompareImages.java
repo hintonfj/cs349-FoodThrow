@@ -1,6 +1,5 @@
 package gui.reader;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
@@ -9,21 +8,42 @@ import io.ResourceFinder;
 import resources.images.CompareImages.CompareMarker;
 import visual.statik.sampled.ImageFactory;
 
+/**
+ * Compares two images.
+ */
 public class CompareImages 
 {
-    public static double CompareBufferedImages(BufferedImage img1, BufferedImage img2)
+    /**
+     * Compares two buffered images.
+     * @param img1 image 1
+     * @param img2 image 2
+     * @return percentage of how close they are (1 = exactly)
+     */
+    public static double CompareBufferedImages(final BufferedImage img1, final BufferedImage img2)
     {
         return Compare(img1, img2);
     }
 
-    public static double CompareBufferedImages(JComponent img1, BufferedImage img2)
+    /**
+     * Compares a buffered image and a JComponent.
+     * @param img1 JComponent
+     * @param img2 Image
+     * @return percentage of how close they are (1 = exactly)
+     */
+    public static double CompareBufferedImages(final JComponent img1, final BufferedImage img2)
     {
         
         BufferedImage buffered1 = ImageConverter.convertToBuffered(img1);
         return CompareBufferedImages(buffered1, img2);
     }
 
-    public static double CompareBufferedImages(JComponent img1, String img2)
+    /**
+     * Compares a buffered image gotten from a string and a JComponent.
+     * @param img1 JComponent
+     * @param img2 String
+     * @return percentage of how close they are (1 = exactly)
+     */
+    public static double CompareBufferedImages(final JComponent img1, final String img2)
     {
         ResourceFinder rf = ResourceFinder.createInstance(new CompareMarker());
         ImageFactory imageFactory = new ImageFactory(rf);
@@ -32,8 +52,13 @@ public class CompareImages
         return CompareBufferedImages(buffered1, buffered2);
     }
 
-
-    private static double Compare(BufferedImage img1, BufferedImage img2)
+    /**
+     * Compares two buffered images.
+     * @param img1 image 1
+     * @param img2 image 2
+     * @return percentage of how close they are (1 = exactly)
+     */
+    private static double Compare(final BufferedImage img1, final BufferedImage img2)
     {
         int matchingPixels = 0;
         int totalPixels = 0;
@@ -50,70 +75,6 @@ public class CompareImages
             }
         }
         return (double) matchingPixels/totalPixels;
-    }
-
-    public static boolean containsColor(JComponent img1, Color c, int percent, int numPixels)
-    {
-        
-        BufferedImage buffered1 = ImageConverter.convertToBuffered(img1);
-        return containsColor(buffered1, c, percent, numPixels);
-    }
-
-    public static boolean containsColor(BufferedImage img, Color c, int percent, int numPixels)
-    {
-        final int target = c.getRGB() & 0x00FFFFFF;
-
-        int width = img.getWidth();
-        int height = img.getHeight();
-
-        int threshold = (int)(numPixels * (percent / 100.0));
-
-        int matches = 0;
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-
-                int rgb = img.getRGB(x, y) & 0x00FFFFFF;
-
-                if (rgb == target) {
-                    if (++matches >= threshold) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public static int numColors(JComponent img1, Color c)
-    {
-        
-        BufferedImage buffered1 = ImageConverter.convertToBuffered(img1);
-        return numColors(buffered1, c);
-    }
-
-    public static int numColors(BufferedImage img, Color c)
-    {
-        final int target = c.getRGB() & 0x00FFFFFF;
-
-        int width = img.getWidth();
-        int height = img.getHeight();
-
-        int matches = 0;
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-
-                int rgb = img.getRGB(x, y) & 0x00FFFFFF;
-
-                if (rgb == target) {
-                    matches++;
-                }
-            }
-        }
-
-        return matches;
     }
 
 }
