@@ -20,6 +20,9 @@ import java.awt.event.MouseEvent;
 
 import visual.*;
 
+/**
+ * Paint Wall.
+ */
 public class PaintWall extends Visualization implements MouseListener {
 	private static final Color BACKGROUND_COLOR = new Color(225, 222, 213);
     protected BufferedSoundFactory soundFactory;
@@ -29,6 +32,13 @@ public class PaintWall extends Visualization implements MouseListener {
     protected Random random;
     protected Clip clip;
 
+	/**
+	 * Creates a paint wall.
+	 * @param width window width
+	 * @param height window height
+	 * @param selector Selector
+	 * @throws IOException
+	 */
 	public PaintWall(final int width, final int height, FoodSelector selector) throws IOException {
 		super();
 		VisualizationView view = getView();
@@ -78,11 +88,20 @@ public class PaintWall extends Visualization implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 	}
 
+	/**
+	 * Handles firing the projectile.
+	 * @param x x cord
+	 * @param y y cord
+	 * @param food food to throw
+	 */
 	protected void handleProjectile(final int x, final int y, final Food food) {
 		PaintContent content = factory.createContent(x, y, food);
 		add(content);
 	}
 
+	/**
+	 * Plays 1 of 3 splat sounds on throw.
+	 */
     private void handleSplatSound(){
         try {
             clip = AudioSystem.getClip();

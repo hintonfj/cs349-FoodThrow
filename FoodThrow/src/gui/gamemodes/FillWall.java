@@ -16,21 +16,30 @@ import paint.PaintContent;
 import resources.Marker;
 import visual.statik.described.TransformableContent;
 
+/**
+ * Fill wall minigame.
+ */
 public class FillWall extends PaintWall{
 
     private ResourceFinder jarFinder;
     private TransformableContent border;
     private int shotsRemaining;
     private ColorChecker colorComparer;
-    private int numPixelsToFill;
     
+    /**
+     * Fill wall minigame.
+     * @param width window width
+     * @param height window height
+     * @param selector Selector
+     * @param Interior Color of the shape
+     * @throws IOException
+     */
     public FillWall(int width, int height, FoodSelector selector, Color Interior) throws IOException {
         super(width, height, selector);
         jarFinder = ResourceFinder.createInstance(new Marker());
         BaseMapReader mapReader = new BaseMapReader(jarFinder);
         border = mapReader.read("harrisonburg.map", Color.BLACK, Interior);
         shotsRemaining = 100;
-        numPixelsToFill = -1;
         colorComparer = new ColorChecker(Interior);
         add(border);
     }

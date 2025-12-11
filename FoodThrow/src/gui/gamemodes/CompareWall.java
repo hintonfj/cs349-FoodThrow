@@ -22,6 +22,9 @@ import resources.images.CompareImages.CompareMarker;
 import visual.VisualizationView;
 import visual.statik.sampled.ImageFactory;
 
+/**
+ * Compare Wall minigame.
+ */
 public class CompareWall extends PaintWall implements KeyListener{
 
     private BufferedImage comparedImage;
@@ -31,11 +34,18 @@ public class CompareWall extends PaintWall implements KeyListener{
     private JLabel timerLabel;
 
 
-    public CompareWall(int width, int height, FoodSelector selector) throws IOException {
+    /**
+     * Compare Wall Minigame.
+     * @param width window width 
+     * @param height window height
+     * @param selector Selector
+     * @throws IOException
+     */
+    public CompareWall(final int width, final int height, final FoodSelector selector) throws IOException {
         super(width, height, selector);
         VisualizationView view = getView();
         addKeyListener(this);
-        changePhoto("corner.png");
+        changePhoto("olympics.png");
         handleImageDisplay(width, height);
 
         /*TIMER NOT WORKING */
@@ -48,8 +58,11 @@ public class CompareWall extends PaintWall implements KeyListener{
         startTimer();
     }
 
-
-    public void changePhoto(String filename)
+    /**
+     * Changes the photo to compare to.
+     * @param filename file name
+     */
+    public void changePhoto(final String filename)
     {
         ResourceFinder rf = ResourceFinder.createInstance(new CompareMarker());
         ImageFactory imageFactory = new ImageFactory(rf);
@@ -71,7 +84,12 @@ public class CompareWall extends PaintWall implements KeyListener{
         // TODO Auto-generated method stub
     }
 
-    private void handleImageDisplay(int width, int height)
+    /**
+     * Displays the image to compare.
+     * @param width width of dialog
+     * @param height height of dialog
+     */
+    private void handleImageDisplay(final int width, final int height)
     {
         if (comparedImage == null)
         {
@@ -79,12 +97,15 @@ public class CompareWall extends PaintWall implements KeyListener{
         }
         float scaleW = 0.5f;
         float scaleH = 0.5f;
-        JDialog dialog = new PictureDialog(width, height, scaleW, scaleH, comparedImage);
+        JDialog dialog = new PictureDialog(scaleW, scaleH, comparedImage);
         dialog.repaint();
         dialog.validate();
         dialog.setVisible(true);
     }
 
+    /**
+     * Ends the game and calculates the percentage.
+     */
     private void gameEnd()
     {
         timer.cancel();
@@ -95,18 +116,22 @@ public class CompareWall extends PaintWall implements KeyListener{
         JOptionPane.showMessageDialog(null, String.format("You got: %%%.2f!\nTime left: %.2f!\nScore:%.2f", percent, timeRemaining, score));
     }
 
-private void startTimer() {
-    remainingMilliseconds = seconds*1000;
-    timer = new Timer();
-    timer.scheduleAtFixedRate(new TimerTask() {
-        @Override
-        public void run() {
-                if (remainingMilliseconds > 0) {
-                    remainingMilliseconds--;
-                } else {
-                    gameEnd();
+    /**
+     * Starts a timer.
+     */
+    private void startTimer() 
+    {
+        remainingMilliseconds = seconds*1000;
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                    if (remainingMilliseconds > 0) {
+                        remainingMilliseconds--;
+                    } else {
+                        gameEnd();
+                    }
                 }
-            }
-        }, 1000, 1);
-    }
+            }, 1000, 1);
+        }
 }

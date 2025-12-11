@@ -12,9 +12,19 @@ import gui.FoodSelector;
 import gui.PaintWall;
 import gui.reader.ImageConverter;
 
+/**
+ * Free Paint minigame.
+ */
 public class FreePaint extends PaintWall implements KeyListener{
 
-    public FreePaint(int width, int height, FoodSelector selector) throws IOException {
+    /**
+     * Free Paint minigame.
+     * @param width width of the window
+     * @param height height of the window
+     * @param selector FoodSelector
+     * @throws IOException
+     */
+    public FreePaint(final int width, final int height, final FoodSelector selector) throws IOException {
         super(width, height, selector);
         addKeyListener(this);
     }
@@ -33,6 +43,9 @@ public class FreePaint extends PaintWall implements KeyListener{
         // TODO Auto-generated method stub
     }
 
+    /**
+     * Saves the image.
+     */
     private void saveFile()
 	{
 		try {
