@@ -1,5 +1,6 @@
 package gui.reader;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
@@ -50,4 +51,69 @@ public class CompareImages
         }
         return (double) matchingPixels/totalPixels;
     }
+
+    public static boolean containsColor(JComponent img1, Color c, int percent, int numPixels)
+    {
+        
+        BufferedImage buffered1 = ImageConverter.convertToBuffered(img1);
+        return containsColor(buffered1, c, percent, numPixels);
+    }
+
+    public static boolean containsColor(BufferedImage img, Color c, int percent, int numPixels)
+    {
+        final int target = c.getRGB() & 0x00FFFFFF;
+
+        int width = img.getWidth();
+        int height = img.getHeight();
+
+        int threshold = (int)(numPixels * (percent / 100.0));
+
+        int matches = 0;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+
+                int rgb = img.getRGB(x, y) & 0x00FFFFFF;
+
+                if (rgb == target) {
+                    if (++matches >= threshold) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static int numColors(JComponent img1, Color c)
+    {
+        
+        BufferedImage buffered1 = ImageConverter.convertToBuffered(img1);
+        return numColors(buffered1, c);
+    }
+
+    public static int numColors(BufferedImage img, Color c)
+    {
+        final int target = c.getRGB() & 0x00FFFFFF;
+
+        int width = img.getWidth();
+        int height = img.getHeight();
+
+        int matches = 0;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+
+                int rgb = img.getRGB(x, y) & 0x00FFFFFF;
+
+                if (rgb == target) {
+                    matches++;
+                }
+            }
+        }
+
+        return matches;
+    }
+
 }

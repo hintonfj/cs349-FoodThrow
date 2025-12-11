@@ -7,22 +7,12 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import gui.FoodSelector;
 import gui.PaintWall;
-import gui.reader.CompareImages;
 import gui.reader.ImageConverter;
-import io.ResourceFinder;
-import resources.images.CompareImages.CompareMarker;
-import visual.statik.sampled.ImageFactory;
 
 public class FreePaint extends PaintWall implements KeyListener{
-
-    private BufferedImage comparedImage;
 
     public FreePaint(int width, int height, FoodSelector selector) throws IOException {
         super(width, height, selector);

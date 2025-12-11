@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import gui.FoodSelector;
 import gui.PaintWall;
+import gui.PictureDialog;
 import gui.reader.CompareImages;
 import io.ResourceFinder;
 import resources.images.CompareImages.CompareMarker;
@@ -77,13 +77,9 @@ public class CompareWall extends PaintWall implements KeyListener{
         {
             System.out.println(":(");
         }
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Photo");
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.setSize(width, height);
-        dialog.setLocationRelativeTo(null);
-        dialog.setResizable(false);
-        dialog.add(new JLabel(new ImageIcon(comparedImage)));
+        float scaleW = 0.5f;
+        float scaleH = 0.5f;
+        JDialog dialog = new PictureDialog(width, height, scaleW, scaleH, comparedImage);
         dialog.repaint();
         dialog.validate();
         dialog.setVisible(true);

@@ -2,6 +2,7 @@ package main;
 
 import gui.*;
 import gui.gamemodes.CompareWall;
+import gui.gamemodes.FillWall;
 import gui.gamemodes.FreePaint;
 
 import javax.imageio.ImageIO;
@@ -85,6 +86,11 @@ public class FoodThrowMain extends FoodThrowApplication {
 				showGamePanel(gamePanel, openingRef[0]);
 			},
 			() -> { // Coming Soon
+				try {
+					wall = new FillWall(width, height, selector, Color.WHITE);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				showGamePanel(gamePanel, openingRef[0]);
 			}
 		);

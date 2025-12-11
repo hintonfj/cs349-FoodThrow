@@ -78,6 +78,7 @@ public OpeningScreen(Runnable onStartFreePaint, Runnable onStartOpt1, Runnable o
         JButton opt2 = new JButton("Coming Soon");
         opt2.setFont(new Font("Monaco", Font.PLAIN, 18));
         opt2.setBounds(225, 520, 150, 50);
+        opt2.addActionListener(e -> onStartOpt2.run());
         add(opt2);
     }
 

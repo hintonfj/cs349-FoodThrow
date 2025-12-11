@@ -82,7 +82,7 @@ public class PaintWall extends Visualization implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 	}
 
-	private void handleProjectile(final int x, final int y, final Food food) {
+	protected void handleProjectile(final int x, final int y, final Food food) {
 		PaintContent content = factory.createContent(x, y, food);
 		add(content);
 	}
