@@ -13,7 +13,7 @@ import gui.reader.BaseMapReader;
 import gui.reader.ColorChecker;
 import io.ResourceFinder;
 import paint.PaintContent;
-import resources.Marker;
+import resources.images.FillMaps.FillMarker;
 import visual.statik.described.TransformableContent;
 
 /**
@@ -36,9 +36,9 @@ public class FillWall extends PaintWall{
      */
     public FillWall(int width, int height, FoodSelector selector, Color Interior) throws IOException {
         super(width, height, selector);
-        jarFinder = ResourceFinder.createInstance(new Marker());
+        jarFinder = ResourceFinder.createInstance(new FillMarker());
         BaseMapReader mapReader = new BaseMapReader(jarFinder);
-        border = mapReader.read("harrisonburg.map", Color.BLACK, Interior);
+        border = mapReader.read("squares.map", Color.BLACK, Interior);
         shotsRemaining = 100;
         colorComparer = new ColorChecker(Interior);
         add(border);

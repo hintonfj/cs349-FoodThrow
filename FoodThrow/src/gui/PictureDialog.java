@@ -13,7 +13,13 @@ import javax.swing.JLabel;
  */
 public class PictureDialog extends JDialog 
 {
-    public PictureDialog(float scaleW, float scaleH, BufferedImage comparedImage)
+    /**
+     * Creates a Picture Dialog box.
+     * @param scaleW The width scale
+     * @param scaleH The height scale
+     * @param comparedImage The image
+     */
+    public PictureDialog(final float scaleW, final float scaleH, final BufferedImage comparedImage)
     {
         super();
         int w = (int) (comparedImage.getWidth() * scaleW);
