@@ -1,5 +1,9 @@
 package resources.images.CompareImages;
 
-public class CompareMarker {
-    
+/**
+ * Compare Marker.
+ */
+public class CompareMarker
+{
+
 }

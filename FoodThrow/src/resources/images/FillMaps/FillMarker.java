@@ -1,5 +1,9 @@
 package resources.images.FillMaps;
 
-public class FillMarker {
-    
+/**
+ * Fill marker.
+ */
+public class FillMarker
+{
+
 }

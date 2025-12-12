@@ -1,5 +1,9 @@
 package sound;
 
-public class SoundMarker {
-    
+/**
+ * Sound marker.
+ */
+public class SoundMarker
+{
+
 }

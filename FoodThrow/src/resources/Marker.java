@@ -1,5 +1,9 @@
 package resources;
 
-public class Marker {
-    
+/**
+ * Marker.
+ */
+public class Marker
+{
+
 }

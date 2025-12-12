@@ -4,42 +4,46 @@ import app.JApplication;
 import javax.swing.JPanel;
 import javax.swing.JComponent;
 
-public abstract class FoodThrowApplication extends JApplication{
+/**
+ * Food Throw abstract class.
+ */
+public abstract class FoodThrowApplication extends JApplication
+{
 
-  public static final int WIDTH  = 600;
+  public static final int WIDTH = 600;
   public static final int HEIGHT = 800;
-  
+
   /**
    * Explicit value constructor.
    * 
-   * @param args   The command line arguments
+   * @param args
+   *          The command line arguments
    */
   public FoodThrowApplication(final String[] args)
   {
     super(args, WIDTH, HEIGHT);
   }
 
-    /**
+  /**
    * Get the GUI components to use.
    * 
    * @return The WeatherObserverPanel
    */
   protected abstract JComponent getGUIComponent();
-  
 
   /**
-   * Initialize this JApplication (required by JApplication).
-   * Specifically, construct and layout the JFrame.
+   * Initialize this JApplication (required by JApplication). Specifically, construct and layout the
+   * JFrame.
    */
   @Override
   public void init()
   {
     // Setup the content pane
-    JPanel contentPane = (JPanel)getContentPane();
+    JPanel contentPane = (JPanel) getContentPane();
     contentPane.setLayout(null);
-    
+
     JComponent foodGame = getGUIComponent();
-    foodGame.setBounds(0, 0, WIDTH, HEIGHT-60);
+    foodGame.setBounds(0, 0, WIDTH, HEIGHT - 60);
     contentPane.add(foodGame);
   }
 }
