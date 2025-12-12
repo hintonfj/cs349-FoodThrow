@@ -44,34 +44,33 @@ public class FreePaint extends PaintWall implements KeyListener{
     }
 
     /**
-     * Saves the image.
+     * Saves the image and opens file saver.
      */
     public void saveFile()
     {
         try {
-            // Convert the current view into an image
+            // convert the current view into an image
             BufferedImage bi = ImageConverter.convertToBuffered(getView());
 
             // Open a file chooser
             javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
             chooser.setDialogTitle("Save Your Painting");
-            chooser.setSelectedFile(new File("painting.png")); // suggested default name
+            chooser.setSelectedFile(new File("painting.png"));
 
             int option = chooser.showSaveDialog(null);
 
-            // User pressed "Cancel"
+            // User presses cancel
             if (option != javax.swing.JFileChooser.APPROVE_OPTION) {
                 return;
             }
 
             File file = chooser.getSelectedFile();
 
-            // Add .png if needed
+            // Add .png suffix if needed
             if (!file.getName().toLowerCase().endsWith(".png")) {
                 file = new File(file.getAbsolutePath() + ".png");
             }
 
-            // Write image to disk
             ImageIO.write(bi, "png", file);
 
             // Show confirmation
