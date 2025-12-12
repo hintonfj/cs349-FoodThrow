@@ -46,7 +46,7 @@ public class FreePaint extends PaintWall implements KeyListener{
     /**
      * Saves the image.
      */
-    private void saveFile()
+    public void saveFile()
 	{
 		try {
     		BufferedImage bi = ImageConverter.convertToBuffered(getView());  // retrieve image
