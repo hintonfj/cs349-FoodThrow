@@ -171,11 +171,11 @@ public class FoodThrowMain extends FoodThrowApplication
       if (wall instanceof FreePaint freePaint)
       {
         JButton saveButton = new JButton("Save");
-        saveButton.setBounds(WIDTH - 100, 0, 80, 30); // position under the palette
+        saveButton.setBounds(WIDTH - 100, 0, 80, 30);
         saveButton.addActionListener(e -> freePaint.saveFile());
         gamePanel.add(saveButton);
         JButton chooseColorBtn = new JButton("Change Background");
-        chooseColorBtn.setBounds(WIDTH - 200, 0, 80, 30); // position under the palette
+        chooseColorBtn.setBounds(WIDTH - 250, 0, 150, 30); 
         chooseColorBtn.addActionListener(e -> 
         {
           Color chosen = JColorChooser.showDialog(null, "Pick a Color", Color.WHITE);
