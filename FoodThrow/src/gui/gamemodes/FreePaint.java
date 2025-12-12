@@ -47,13 +47,50 @@ public class FreePaint extends PaintWall implements KeyListener{
      * Saves the image.
      */
     public void saveFile()
-	{
-		try {
-    		BufferedImage bi = ImageConverter.convertToBuffered(getView());  // retrieve image
-			File outputfile = new File("saved.png");
-			ImageIO.write(bi, "png", outputfile);
-		} catch (IOException e) {
-			// handle exception
-		}
-	}
+    {
+        try {
+            // Convert the current view into an image
+            BufferedImage bi = ImageConverter.convertToBuffered(getView());
+
+            // Open a file chooser
+            javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            chooser.setDialogTitle("Save Your Painting");
+            chooser.setSelectedFile(new File("painting.png")); // suggested default name
+
+            int option = chooser.showSaveDialog(null);
+
+            // User pressed "Cancel"
+            if (option != javax.swing.JFileChooser.APPROVE_OPTION) {
+                return;
+            }
+
+            File file = chooser.getSelectedFile();
+
+            // Add .png if needed
+            if (!file.getName().toLowerCase().endsWith(".png")) {
+                file = new File(file.getAbsolutePath() + ".png");
+            }
+
+            // Write image to disk
+            ImageIO.write(bi, "png", file);
+
+            // Show confirmation
+            javax.swing.JOptionPane.showMessageDialog(
+                null,
+                "Saved painting as:\n" + file.getName(),
+                "Saved!",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+            );
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(
+                null,
+                "An error occurred while saving the image.",
+                "Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
 }
