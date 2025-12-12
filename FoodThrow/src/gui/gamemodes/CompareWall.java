@@ -24,7 +24,7 @@ import visual.statik.sampled.ImageFactory;
 public class CompareWall extends PaintWall{
 
     private BufferedImage comparedImage;
-    private int seconds = 10;
+    private int seconds = 60;
     private int remainingMilliseconds;
     private Timer timer;
     //private JLabel timerLabel;
@@ -42,7 +42,8 @@ public class CompareWall extends PaintWall{
     public CompareWall(final int width, final int height, final FoodSelector selector) throws IOException {
         super(width, height, selector);
         VisualizationView view = getView();
-        changePhoto(images[random.nextInt(3)]);
+        //changePhoto(images[random.nextInt(3)]);
+        changePhoto("olympics.png");
         handleImageDisplay(width, height);
 
 
@@ -105,7 +106,7 @@ public class CompareWall extends PaintWall{
     private void gameEnd(boolean complete)
     {
         timer.cancel();
-        
+        remove(timerArc);
         double percent = CompareImages.CompareBufferedImages(getView(), comparedImage)*100;
         double timeRemaining = (remainingMilliseconds / 1000.0);
         double score = percent * (timeRemaining + 1);
