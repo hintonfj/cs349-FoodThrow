@@ -149,8 +149,8 @@ public class FoodThrowMain extends FoodThrowApplication {
 	            compare.bringTimerToFront();
 				JButton endButton = new JButton("Finish!");
 			    endButton.setBounds(WIDTH - 100, 0, 80, 30); // position under the palette
-			    endButton.addActionListener(e -> compare.endEarly(true));
 				endButton.addActionListener(e -> compare.closePreview());
+			    endButton.addActionListener(e -> compare.endEarly(true));
 			    gamePanel.add(endButton);
 	        }
 		}

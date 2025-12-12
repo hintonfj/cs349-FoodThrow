@@ -30,6 +30,7 @@ public class CompareWall extends PaintWall{
     //private JLabel timerLabel;
     private TimerArcContent timerArc;
     private JDialog dialog;
+    private String[] images = {"olympics.png", "red-square.png", "smile.png"};
 
     /**
      * Compare Wall Minigame.
@@ -41,7 +42,7 @@ public class CompareWall extends PaintWall{
     public CompareWall(final int width, final int height, final FoodSelector selector) throws IOException {
         super(width, height, selector);
         VisualizationView view = getView();
-        changePhoto("olympics.png");
+        changePhoto(images[random.nextInt(3)]);
         handleImageDisplay(width, height);
 
 
@@ -80,7 +81,7 @@ public class CompareWall extends PaintWall{
         }
         float scaleW = 0.5f;
         float scaleH = 0.5f;
-        JDialog dialog = new PictureDialog(scaleW, scaleH, comparedImage);
+        this.dialog = new PictureDialog(scaleW, scaleH, comparedImage);
         dialog.setModal(false); 
         dialog.setModalityType(java.awt.Dialog.ModalityType.MODELESS);
 
