@@ -1,16 +1,11 @@
 package gui.gamemodes;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import gui.FoodSelector;
@@ -26,7 +21,7 @@ import visual.statik.sampled.ImageFactory;
 /**
  * Compare Wall minigame.
  */
-public class CompareWall extends PaintWall implements KeyListener{
+public class CompareWall extends PaintWall{
 
     private BufferedImage comparedImage;
     private int seconds = 10;
@@ -35,7 +30,6 @@ public class CompareWall extends PaintWall implements KeyListener{
     //private JLabel timerLabel;
     private TimerArcContent timerArc;
     private JDialog dialog;
-
 
     /**
      * Compare Wall Minigame.
@@ -47,7 +41,6 @@ public class CompareWall extends PaintWall implements KeyListener{
     public CompareWall(final int width, final int height, final FoodSelector selector) throws IOException {
         super(width, height, selector);
         VisualizationView view = getView();
-        addKeyListener(this);
         changePhoto("olympics.png");
         handleImageDisplay(width, height);
 
@@ -74,21 +67,6 @@ public class CompareWall extends PaintWall implements KeyListener{
         comparedImage = imageFactory.createBufferedImage(filename);
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        gameEnd();
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-    }
-
     /**
      * Displays the image to compare.
      * @param width width of dialog
@@ -111,6 +89,9 @@ public class CompareWall extends PaintWall implements KeyListener{
         dialog.setVisible(true);
     }
 
+    /**
+     * Makes sure the timer is in front.
+     */
     public void bringTimerToFront() {
         // re-add timerArc to ensure top layer
         remove(timerArc);
@@ -120,25 +101,40 @@ public class CompareWall extends PaintWall implements KeyListener{
     /**
      * Ends the game and calculates the percentage.
      */
-    private void gameEnd()
+    private void gameEnd(boolean complete)
     {
         timer.cancel();
         
         double percent = CompareImages.CompareBufferedImages(getView(), comparedImage)*100;
         double timeRemaining = (remainingMilliseconds / 1000.0);
         double score = percent * (timeRemaining + 1);
+        if (complete)
+        {
         JOptionPane.showMessageDialog(
                 getView(), 
                 String.format("You got: %%%.2f!\nTime left: %.2f!\nScore:%.2f", percent, timeRemaining, score)
             );
+        }
+        remainingMilliseconds = 0;
     }
 
+    /**
+     * Updates the timer.
+     */
     private void updateTimerArc() {
         double secondsLeft = remainingMilliseconds / 1000.0;
         double percentRemaining = secondsLeft / seconds;
 
         timerArc.setPercent(percentRemaining);
         getView().repaint();
+    }
+
+    /**
+     * Ends the game early.
+     */
+    public void endEarly(boolean complete)
+    {
+        gameEnd(complete);
     }
     
     /**
@@ -157,16 +153,23 @@ public class CompareWall extends PaintWall implements KeyListener{
                     updateTimerArc();
                 } else {
                     timer.cancel();
-                    javax.swing.SwingUtilities.invokeLater(() -> gameEnd());
+                    javax.swing.SwingUtilities.invokeLater(() -> gameEnd(true));
                 }
             }
         }, 0, 100); 
     }
     
+    /**
+     * Returns active timer arc.
+     * @return Timer.
+     */
     public TimerArcContent getTimerArc() {
         return timerArc;
     }
     
+    /**
+     * Closes the preview on close of the game
+     */
     public void closePreview() {
         if (dialog != null) {
         	dialog.dispose();

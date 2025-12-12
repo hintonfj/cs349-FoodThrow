@@ -106,8 +106,10 @@ public class FoodThrowMain extends FoodThrowApplication {
 
 	/**
 	 * Shows the game panel and adds the wall and palette after wall is initialized.
+	 * @param gamePanel Jpanel stuff
+	 * @param opening The opening screen
 	 */
-	private void showGamePanel(JPanel gamePanel, OpeningScreen opening) {
+	private void showGamePanel(final JPanel gamePanel, final OpeningScreen opening) {
 		// Hide opening screen
 		opening.setVisible(false);
 
@@ -123,6 +125,7 @@ public class FoodThrowMain extends FoodThrowApplication {
 	    backButton.setBounds(0, 0, 80, 30);
 	    backButton.addActionListener(e -> {
 	        if (wall instanceof CompareWall compare) {
+				compare.endEarly(false);
 	            compare.closePreview();
 	        }
 	        gamePanel.setVisible(false);
@@ -144,6 +147,11 @@ public class FoodThrowMain extends FoodThrowApplication {
 
 	        if (wall instanceof CompareWall compare) {
 	            compare.bringTimerToFront();
+				JButton endButton = new JButton("Finish!");
+			    endButton.setBounds(WIDTH - 100, 0, 80, 30); // position under the palette
+			    endButton.addActionListener(e -> compare.endEarly(true));
+				endButton.addActionListener(e -> compare.closePreview());
+			    gamePanel.add(endButton);
 	        }
 		}
 		gamePanel.revalidate();

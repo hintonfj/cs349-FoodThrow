@@ -2,21 +2,35 @@ package gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+/**
+ * Food selector.
+ */
 public class FoodSelector implements KeyListener {
 
 	private Food[] foods;
 	private int index = 0;
 	private Runnable onChange;
 
+	/**
+	 * Creates a food selector.
+	 * @param foods array of foods
+	 */
 	public FoodSelector(Food[] foods) {
 		this.foods = foods;
 	}
 
+	/**
+	 * Changes the runnable.
+	 * @param r the runnable it changes to
+	 */
 	public void setOnChange(Runnable r) {
 		this.onChange = r;
 	}
 
+	/**
+	 * Returns the current food its on.
+	 * @return the current food
+	 */
 	public Food getFood() {
 		return foods[index];
 	}
@@ -45,10 +59,18 @@ public class FoodSelector implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 	}
 
+	/**
+	 * Returns current index.
+	 * @return index
+	 */
 	public int getIndex() {
 		return index;
 	}
 
+	/**
+	 * Sets current index to new index.
+	 * @param index2 new index
+	 */
 	public void setIndex(Integer index2) {
 		this.index = index2;
 	}

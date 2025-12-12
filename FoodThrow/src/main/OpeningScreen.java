@@ -13,11 +13,20 @@ import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Opening Screen.
+ */
 public class OpeningScreen extends JPanel {
     private String compareHelpText;
     private String fillHelpText;
 
-public OpeningScreen(Runnable onStartFreePaint, Runnable onStartOpt1, Runnable onStartOpt2) {
+    /**
+     * Creates an OpeningScreen.
+     * @param onStartFreePaint Free Paint Runnable
+     * @param onStartOpt1 Compare Paint Runnable
+     * @param onStartOpt2 Fill Paint Runnable
+     */
+    public OpeningScreen(final Runnable onStartFreePaint, final Runnable onStartOpt1, final Runnable onStartOpt2) {
         compareHelpText = "";
         fillHelpText = "";
         setUp();
@@ -91,11 +100,18 @@ public OpeningScreen(Runnable onStartFreePaint, Runnable onStartOpt1, Runnable o
         add(help2);
     }
 
-    private void printDialog(String text)
+    /**
+     * Prints a JOption with text.
+     * @param text the text to print
+     */
+    private void printDialog(final String text)
     {
         JOptionPane.showMessageDialog(null, text);
     }
 
+    /**
+     * Sets up the help text documentation.
+     */
     private void setUp()
     {
         ResourceFinder rf = ResourceFinder.createInstance(new resources.Marker());
