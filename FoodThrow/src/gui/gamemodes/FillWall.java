@@ -21,6 +21,8 @@ import visual.statik.described.TransformableContent;
  */
 public class FillWall extends PaintWall{
 
+	private int shots = 0;
+	private javax.swing.JLabel shotLabel;
     private ResourceFinder jarFinder;
     private TransformableContent border;
     private int shotsRemaining;
@@ -36,6 +38,12 @@ public class FillWall extends PaintWall{
      */
     public FillWall(int width, int height, FoodSelector selector, Color Interior) throws IOException {
         super(width, height, selector);
+        
+        //shot label
+        shotLabel = new javax.swing.JLabel("Shots: 0 | Left: 100");
+        shotLabel.setFont(new java.awt.Font("Monaco", java.awt.Font.BOLD, 15));
+        shotLabel.setForeground(java.awt.Color.BLACK);
+        
         jarFinder = ResourceFinder.createInstance(new FillMarker());
         BaseMapReader mapReader = new BaseMapReader(jarFinder);
         border = mapReader.read("squares.map", Color.BLACK, Interior);
@@ -87,6 +95,26 @@ public class FillWall extends PaintWall{
         d.add(new JLabel("Lose :("));
         d.setVisible(true);
     }
+    
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent e) {
+        super.mouseClicked(e);
+
+        shots++;
+        shotLabel.setText("Shots: " + shots + " | Left: " + shotsRemaining);
+    }
+
+    
+    public int getShotsRemaining()
+    {
+        return shotsRemaining;
+    }
+
+    public javax.swing.JLabel getShotLabel()
+    {
+        return shotLabel;
+    }
+
 
 
 }

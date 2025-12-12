@@ -8,6 +8,7 @@ import gui.gamemodes.FreePaint;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import java.awt.Color;
@@ -144,7 +145,11 @@ public class FoodThrowMain extends FoodThrowApplication {
 			    saveButton.addActionListener(e -> freePaint.saveFile());
 			    gamePanel.add(saveButton);
 			}
-
+			if (wall instanceof FillWall fillWall) {
+			    JLabel shotLabel = fillWall.getShotLabel();
+			    shotLabel.setBounds(WIDTH - 200, 0, 200, 30); // top-right
+			    gamePanel.add(shotLabel);
+			}
 	        if (wall instanceof CompareWall compare) {
 	            compare.bringTimerToFront();
 				JButton endButton = new JButton("Finish!");
