@@ -1,5 +1,6 @@
 package gui.gamemodes;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -15,7 +16,7 @@ import gui.reader.ImageConverter;
 /**
  * Free Paint minigame.
  */
-public class FreePaint extends PaintWall implements KeyListener{
+public class FreePaint extends PaintWall{
 
     /**
      * Free Paint minigame.
@@ -26,21 +27,11 @@ public class FreePaint extends PaintWall implements KeyListener{
      */
     public FreePaint(final int width, final int height, final FoodSelector selector) throws IOException {
         super(width, height, selector);
-        addKeyListener(this);
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
+    public void setBackground(Color c)
+    {
+        getView().setBackground(c);
     }
 
     /**

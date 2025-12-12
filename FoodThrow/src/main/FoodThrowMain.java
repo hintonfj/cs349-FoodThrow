@@ -7,6 +7,7 @@ import gui.gamemodes.FreePaint;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -143,6 +144,16 @@ public class FoodThrowMain extends FoodThrowApplication {
 			    saveButton.setBounds(WIDTH - 100, 0, 80, 30); // position under the palette
 			    saveButton.addActionListener(e -> freePaint.saveFile());
 			    gamePanel.add(saveButton);
+				JButton chooseColorBtn = new JButton("Change Background");
+			    chooseColorBtn.setBounds(WIDTH - 200, 0, 80, 30); // position under the palette
+				chooseColorBtn.addActionListener(e -> {
+            		Color chosen = JColorChooser.showDialog(null, "Pick a Color", Color.WHITE); 
+					if (chosen != null)
+					{
+						freePaint.setBackground(chosen);
+					}
+				});
+				gamePanel.add(chooseColorBtn);
 			}
 
 	        if (wall instanceof CompareWall compare) {
