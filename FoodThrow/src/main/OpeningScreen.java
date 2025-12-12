@@ -15,8 +15,11 @@ import javax.imageio.ImageIO;
 
 public class OpeningScreen extends JPanel {
     private String compareHelpText;
+    private String fillHelpText;
 
 public OpeningScreen(Runnable onStartFreePaint, Runnable onStartOpt1, Runnable onStartOpt2) {
+        compareHelpText = "";
+        fillHelpText = "";
         setUp();
         setLayout(null);
         setBackground(new Color(245, 245, 245));
@@ -62,7 +65,7 @@ public OpeningScreen(Runnable onStartFreePaint, Runnable onStartOpt1, Runnable o
 
         // game mode 1
         JButton opt1 = new JButton("Speed Paint");
-        opt1.setFont(new Font("Monaco", Font.PLAIN, 18));
+        opt1.setFont(new Font("Monaco", Font.BOLD, 18));
         opt1.setBounds(225, 465, 150, 50);
         opt1.addActionListener(e -> onStartOpt1.run());
         add(opt1);
@@ -75,11 +78,17 @@ public OpeningScreen(Runnable onStartFreePaint, Runnable onStartOpt1, Runnable o
         add(help1);
 
         // game mode 2
-        JButton opt2 = new JButton("Coming Soon");
-        opt2.setFont(new Font("Monaco", Font.PLAIN, 18));
+        JButton opt2 = new JButton("Fill Paint");
+        opt2.setFont(new Font("Monaco", Font.BOLD, 18));
         opt2.setBounds(225, 520, 150, 50);
         opt2.addActionListener(e -> onStartOpt2.run());
         add(opt2);
+
+        JButton help2 = new JButton("?");
+        help2.setFont(new Font("Monaco", Font.PLAIN, 18));
+        help2.setBounds(385, 520, 50, 50);
+        help2.addActionListener(e -> printDialog(fillHelpText));
+        add(help2);
     }
 
     private void printDialog(String text)
@@ -93,15 +102,28 @@ public OpeningScreen(Runnable onStartFreePaint, Runnable onStartOpt1, Runnable o
         String current = "";
         try
         {
-        InputStream is = rf.findInputStream("compareAbout.txt");
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        while ((current = br.readLine()) != null)
-            compareHelpText += current + "\n";
+            InputStream is = rf.findInputStream("compareAbout.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            while ((current = br.readLine()) != null)
+                compareHelpText += current + "\n";
         }
         catch (NullPointerException | IOException e)
         {
-        JOptionPane.showMessageDialog(null, "compareAbout.txt cannot be found");
-        System.exit(0);
+            JOptionPane.showMessageDialog(null, "compareAbout.txt cannot be found");
+            System.exit(0);
+        }
+        current = "";
+        try
+        {
+            InputStream is = rf.findInputStream("fillAbout.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            while ((current = br.readLine()) != null)
+                fillHelpText += current + "\n";
+        }
+        catch (NullPointerException | IOException e)
+        {
+            JOptionPane.showMessageDialog(null, "fillAbout.txt cannot be found");
+            System.exit(0);
         }
     }
 }
