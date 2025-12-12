@@ -122,18 +122,30 @@ public class FoodThrowMain extends FoodThrowApplication {
 	    JButton backButton = new JButton("Back");
 	    backButton.setBounds(0, 0, 80, 30);
 	    backButton.addActionListener(e -> {
+	        if (wall instanceof CompareWall compare) {
+	            compare.closePreview();
+	        }
 	        gamePanel.setVisible(false);
 	        opening.setVisible(true);
 	    });
 	    gamePanel.add(backButton);
-
+	    
 		if (wall != null) {
 			// Add wall view under palette
 			JComponent wallView = wall.getView();
 			wallView.setBounds(0, 120, WIDTH, HEIGHT - 120);
 			gamePanel.add(wallView);
-		}
+			if (wall instanceof FreePaint freePaint) {
+			    JButton saveButton = new JButton("Save");
+			    saveButton.setBounds(WIDTH - 100, 0, 80, 30); // position under the palette
+			    saveButton.addActionListener(e -> freePaint.saveFile());
+			    gamePanel.add(saveButton);
+			}
 
+	        if (wall instanceof CompareWall compare) {
+	            compare.bringTimerToFront();
+	        }
+		}
 		gamePanel.revalidate();
 		gamePanel.repaint();
 		gamePanel.setVisible(true);

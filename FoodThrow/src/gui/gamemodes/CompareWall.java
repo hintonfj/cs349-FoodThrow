@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import gui.FoodSelector;
 import gui.PaintWall;
 import gui.PictureDialog;
+import gui.TimerArcContent;
 import gui.reader.CompareImages;
 import io.ResourceFinder;
 import resources.images.CompareImages.CompareMarker;
@@ -31,7 +32,9 @@ public class CompareWall extends PaintWall implements KeyListener{
     private int seconds = 10;
     private int remainingMilliseconds;
     private Timer timer;
-    private JLabel timerLabel;
+    //private JLabel timerLabel;
+    private TimerArcContent timerArc;
+    private JDialog dialog;
 
 
     /**
@@ -48,13 +51,15 @@ public class CompareWall extends PaintWall implements KeyListener{
         changePhoto("olympics.png");
         handleImageDisplay(width, height);
 
-        /*TIMER NOT WORKING */
 
-        timerLabel = new JLabel();
-        timerLabel.setFont(new Font("Monaco", Font.BOLD, 20));
-        timerLabel.setForeground(Color.RED);
-        timerLabel.setBounds(width - 120, 8, 510, 300);
-        view.add(timerLabel);
+        view.setLayout(null);
+
+        // Create circular timer as described dynamic visual content
+        timerArc = new TimerArcContent(100); // radius of circle
+        add(timerArc);
+        timerArc.setLocation(5, width -100);
+
+        // Start countdown
         startTimer();
     }
 
@@ -98,11 +103,20 @@ public class CompareWall extends PaintWall implements KeyListener{
         float scaleW = 0.5f;
         float scaleH = 0.5f;
         JDialog dialog = new PictureDialog(scaleW, scaleH, comparedImage);
+        dialog.setModal(false); 
+        dialog.setModalityType(java.awt.Dialog.ModalityType.MODELESS);
+
         dialog.repaint();
         dialog.validate();
         dialog.setVisible(true);
     }
 
+    public void bringTimerToFront() {
+        // re-add timerArc to ensure top layer
+        remove(timerArc);
+        add(timerArc);
+    }
+    
     /**
      * Ends the game and calculates the percentage.
      */
@@ -113,25 +127,49 @@ public class CompareWall extends PaintWall implements KeyListener{
         double percent = CompareImages.CompareBufferedImages(getView(), comparedImage)*100;
         double timeRemaining = (remainingMilliseconds / 1000.0);
         double score = percent * (timeRemaining + 1);
-        JOptionPane.showMessageDialog(null, String.format("You got: %%%.2f!\nTime left: %.2f!\nScore:%.2f", percent, timeRemaining, score));
+        JOptionPane.showMessageDialog(
+                getView(), 
+                String.format("You got: %%%.2f!\nTime left: %.2f!\nScore:%.2f", percent, timeRemaining, score)
+            );
     }
 
+    private void updateTimerArc() {
+        double secondsLeft = remainingMilliseconds / 1000.0;
+        double percentRemaining = secondsLeft / seconds;
+
+        timerArc.setPercent(percentRemaining);
+        getView().repaint();
+    }
+    
     /**
      * Starts a timer.
      */
     private void startTimer() 
     {
-        remainingMilliseconds = seconds*1000;
+        remainingMilliseconds = seconds * 1000;
+
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                    if (remainingMilliseconds > 0) {
-                        remainingMilliseconds--;
-                    } else {
-                        gameEnd();
-                    }
+                if (remainingMilliseconds > 0) {
+                    remainingMilliseconds -= 100;
+                    updateTimerArc();
+                } else {
+                    timer.cancel();
+                    javax.swing.SwingUtilities.invokeLater(() -> gameEnd());
                 }
-            }, 1000, 1);
+            }
+        }, 0, 100); 
+    }
+    
+    public TimerArcContent getTimerArc() {
+        return timerArc;
+    }
+    
+    public void closePreview() {
+        if (dialog != null) {
+        	dialog.dispose();
         }
+    }
 }
