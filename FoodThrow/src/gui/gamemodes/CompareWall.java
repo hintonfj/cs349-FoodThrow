@@ -57,8 +57,6 @@ public class CompareWall extends PaintWall implements KeyListener{
         // Create circular timer as described dynamic visual content
         timerArc = new TimerArcContent(100); // radius of circle
         add(timerArc);
-
-        // Position timer on screen (top-right)
         timerArc.setLocation(5, width -100);
 
         // Start countdown
@@ -155,7 +153,7 @@ public class CompareWall extends PaintWall implements KeyListener{
             @Override
             public void run() {
                 if (remainingMilliseconds > 0) {
-                    remainingMilliseconds -= 100; // 100ms resolution
+                    remainingMilliseconds -= 100;
                     updateTimerArc();
                 } else {
                     timer.cancel();

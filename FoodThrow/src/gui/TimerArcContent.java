@@ -13,7 +13,7 @@ import visual.statik.TransformableContent;
  */
 public class TimerArcContent implements TransformableContent {
 
-    private double percent;     // 1.0 = full, 0.0 = empty
+    private double percent;
     private int radius;
 
     // TransformableContent tracking data
